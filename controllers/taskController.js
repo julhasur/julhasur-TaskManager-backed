@@ -11,3 +11,18 @@ exports.addTask = async (req, res) => {
   res.json(newTask);
 };
 
+exports.updateTask = async (req, res) => {
+    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedTask);
+  };
+  
+  exports.deleteTask = async (req, res) => {
+    await Task.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Task deleted' });
+  };
+  
+  exports.getCompletedTasks = async (req, res) => {
+    const completedTasks = await Task.find({ completed: true });
+    res.json(completedTasks);
+  };
+  
